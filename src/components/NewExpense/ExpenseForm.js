@@ -1,10 +1,12 @@
-import React, { useState, } from "react";
+import React, { useState, useContext } from "react";
 import "./ExpenseForm.css";
+import ExpenseContext from "../ExpenseContext";
 
 const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
+  const [expenses, setExpenses] = useContext(ExpenseContext);
 
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
@@ -28,7 +30,10 @@ const ExpenseForm = (props) => {
         amount: enteredAmount,
         date: new Date(enteredDate),
       };
-      props.onSaveExpenseData(expenseData);
+      //props.onSaveExpenseData(expenseData);
+      setExpenses(() => {
+        return [expenseData, ...expenses];
+      });
       setEnteredAmount("");
       setEnteredDate("");
       setEnteredTitle("");
