@@ -1,0 +1,23 @@
+.main .header {
+  font-size: 2rem;
+  color: #000;
+  padding: 10px;
+  text-align: center;
+}
+
+.main,
+.expense-container {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.expense-container {
+  width: 60%;
+  background-color: rgb(59, 58, 58);
+  padding: 10px;
+  border: 2px solid #fff;
+  border-radius: 15px;
+}

@@ -1,0 +1,64 @@
+.expense-item{
+    width: 100%;
+    background: gray;
+    display: flex;
+    border-radius: 10px;
+    align-items: center;
+    flex:1;
+    margin: 10px;
+    position: relative;
+    
+    
+}
+
+.expense-item__date{
+    flex: 1;
+    margin: 5px;
+}
+
+.expense-item__description{
+    font-size: 1.5rem;
+    font-family:'Lucida Sans';
+    color: #fff;
+    flex: 1;
+    text-align: left;
+}
+
+.expense-item__price{
+    
+    flex: 1;
+    background: rgb(116, 4  , 116);
+    font-size: 1.5rem;
+    color: #fff;
+    padding: 5px;
+    border: 2px solid #fff;
+    border-radius: 15px;
+    width: fit-content;
+    margin-right: 40px;
+}
+
+.remove-btn{
+    cursor: pointer;
+    top:0;
+    right: 0;
+    transition: .4s;
+    position: absolute;
+    
+}
+.remove-btn span{
+    color: #000;
+    font-size: 1rem;
+    position: absolute;
+    visibility: hidden;
+    background-color: #fff;
+}
+.remove-btn:hover  span{
+    visibility: visible;
+}
+
+@media(max-width : 600px){
+    .expense-item{
+        flex-direction: column;
+    }
+}
+
