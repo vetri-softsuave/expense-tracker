@@ -1,29 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./ExpenseItem.css";
 import ExpenseDate from "./ExpenseDate";
-
+import { UpdateExpenseContext } from "../ExpenseContext";
 
 function ExpenseItem(props) {
-  
-
+  const [update, setUpdate] = useContext(UpdateExpenseContext);
+ 
   const removeItem = () => {
     props.onRemoveExpense(props.expense);
-  
   };
 
-  const editItem = () =>{
-    
-  }
-  
+  const editItem = (event) => {
+    setUpdate((pre) => {
+      return { isUpdate: true, updateData: pre.updateData };
+    });
+    console.log(update);
+    console.log(event.target);
+  };
+
   return (
     <div className="expense-item">
       <div className="expense-item__date">
         <ExpenseDate date={props.expense.date}></ExpenseDate>
       </div>
-      <div className="expense-item__description"><h2>{props.expense.title}</h2></div>
-      <div className="expense-item__price">{"$"+props.expense.amount}</div>
-      <div className='remove-btn' onClick={removeItem}>❌<span>Remove</span></div>
-      <div className="update-btn" onClick={editItem}>Edit</div>
+      <div className="expense-item__description">
+        <h2>{props.expense.title}</h2>
+      </div>
+      <div className="expense-item__price">{"$" + props.expense.amount}</div>
+      <div className="remove-btn" onClick={removeItem}>
+        ❌<span>Remove</span>
+      </div>
+      <div className="edit-btn" onClick={editItem}>
+        Edit
+      </div>
     </div>
   );
 }

@@ -25,7 +25,7 @@ const ExpenseList = (props) => {
   if (filteredExpenses.length > 0) {
     expensesContent = filteredExpenses.map((exp, index) => (
       <ExpenseItem
-        key={index}
+        key={Math.random()}
         expense={exp}
         onRemoveExpense={removeExpense}
       ></ExpenseItem>

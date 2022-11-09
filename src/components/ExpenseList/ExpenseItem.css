@@ -62,3 +62,10 @@
     }
 }
 
+
+.edit-btn{
+ background-color: #fff;
+ font-size: 1.2rem;
+ cursor: pointer;
+ border-radius: 5px;
+}
