@@ -12,10 +12,11 @@ function ExpenseItem(props) {
 
   const editItem = (event) => {
     setUpdate((pre) => {
-      return { isUpdate: true, updateData: pre.updateData };
+      return { isUpdate: true, updateData:props.expense };
     });
     console.log(update);
     console.log(event.target);
+    window.scrollTo(0, 0)
   };
 
   return (

@@ -1,13 +1,16 @@
 import React, { useState, useContext } from "react";
 import "./ExpenseForm.css";
 import ExpenseContext from "../ExpenseContext";
+import { UpdateExpenseContext } from "../ExpenseContext";
 
 const ExpenseForm = (props) => {
-  const [enteredTitle, setEnteredTitle] = useState("");
-  const [enteredAmount, setEnteredAmount] = useState("");
-  const [enteredDate, setEnteredDate] = useState("");
+  const [update, setUpdate] = useContext(UpdateExpenseContext);
+  const [enteredTitle, setEnteredTitle] = useState(update.isUpdate?update.updateData.title:"");
+  const [enteredAmount, setEnteredAmount] = useState(update.isUpdate?update.updateData.amount:"");
+  const [enteredDate, setEnteredDate] = useState(update.isUpdate?update.updateData.date.toISOString().substring(0,10):"");
   const [expenses, setExpenses] = useContext(ExpenseContext);
 
+  
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
   };
@@ -20,6 +23,13 @@ const ExpenseForm = (props) => {
     setEnteredDate(event.target.value);
   };
 
+  const updateHandler =()=>{
+    console.log(update.updateData);
+    console.log(typeof(update.updateData.date.toISOString().substring(0,10)));
+    setExpenses(expenses.filter((item) => item.title !== update.updateData.title));
+    return;
+  }
+
   const submitHandler = (event) => {
     event.preventDefault();
     if (!enteredAmount || !enteredDate || !enteredTitle) {
@@ -30,14 +40,17 @@ const ExpenseForm = (props) => {
         amount: enteredAmount,
         date: new Date(enteredDate),
       };
-      //props.onSaveExpenseData(expenseData);
+
       setExpenses(() => {
         return [expenseData, ...expenses];
       });
       setEnteredAmount("");
       setEnteredDate("");
       setEnteredTitle("");
-      props.onCancel();
+      !update.isUpdate && props.onCancel();
+      update.isUpdate && setUpdate((pre)=>{
+        return{isUpdate:false, updateData:pre.updateData}
+      }) && props.onFinishUpdate();
     }
   };
   return (
@@ -71,12 +84,19 @@ const ExpenseForm = (props) => {
             onChange={dateChangeHandler}
           />
         </div>
-        <div className="new-expense__actions">
-          <button type="button" onClick={props.onCancel}>
-            Cancel
-          </button>
-          <button type="submit">Add Expense</button>
-        </div>
+        {!update.isUpdate && (
+          <div className="new-expense__actions">
+            <button type="button" onClick={props.onCancel}>
+              Cancel
+            </button>
+            <button type="submit">Add Expense</button>
+          </div>
+        )}
+        {update.isUpdate && (
+          <div className="new-expense__actions">
+            <button onClick={updateHandler}>Update</button>
+          </div>
+        )}
       </div>
     </form>
   );
