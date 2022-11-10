@@ -7,7 +7,8 @@ const ExpenseForm = (props) => {
   const [update, setUpdate] = useContext(UpdateExpenseContext);
   const [enteredTitle, setEnteredTitle] = useState(update.isUpdate?update.updateData.title:"");
   const [enteredAmount, setEnteredAmount] = useState(update.isUpdate?update.updateData.amount:"");
-  const [enteredDate, setEnteredDate] = useState(update.isUpdate?update.updateData.date.toISOString().substring(0,10):"");
+  console.log(update.updateData);
+  const [enteredDate, setEnteredDate] =  useState(update.isUpdate?update.updateData.date.toISOString().substring(0,10):"");
   const [expenses, setExpenses] = useContext(ExpenseContext);
 
   
@@ -24,8 +25,8 @@ const ExpenseForm = (props) => {
   };
 
   const updateHandler =()=>{
-    console.log(update.updateData);
-    console.log(typeof(update.updateData.date.toISOString().substring(0,10)));
+    //console.log(update.updateData);
+    //console.log(typeof(update.updateData.date.toISOString().substring(0,10)));
     setExpenses(expenses.filter((item) => item.title !== update.updateData.title));
     return;
   }

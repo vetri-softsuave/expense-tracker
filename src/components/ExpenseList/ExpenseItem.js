@@ -11,11 +11,13 @@ function ExpenseItem(props) {
   };
 
   const editItem = (event) => {
+    if(update.isUpdate){
+      alert('please update already selected expense')
+    }
     setUpdate((pre) => {
       return { isUpdate: true, updateData:props.expense };
     });
-    console.log(update);
-    console.log(event.target);
+    console.log(update.updateData);
     window.scrollTo(0, 0)
   };
 
